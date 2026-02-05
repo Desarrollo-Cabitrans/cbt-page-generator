@@ -1,38 +1,37 @@
 <?php 
 global $wpdb;
 
-$tableName = "rbk_pg_data";
-$name_db_generate = "rbk_pg_cron_generate";
-$name_db_generate_data = "rbk_pg_cron_data";
-$name_db_data = "rbk_pg_data";
-
-$tableName = $wpdb->prefix . $name_db_generate;
-$generate = $wpdb->get_results( "SELECT * FROM $tableName" );
-
-$tableName = $wpdb->prefix . $name_db_data;
+$tableName = $wpdb->prefix . "rbk_pg_data";
 $num_cron_execution =  $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Limit Data Cron'" )[0]->value;
 
-$num_cron_execution_original = $num_cron_execution;
 
-$num_total=0;
+require PG_PATH_CODE."/classes/generator_manager.php";
+$generator_manager = new GeneratorManager($num_cron_execution);
+$num_total_created = $generator_manager->run();
+//runGenerateContent($generate, $num_cron_execution);
+
+echo "Se han creado ".$num_total_created." paginas";
+exit;
 
 for($i_g = 0; $i_g < count($generate) && ($num_cron_execution > 0); $i_g++)
 { 
   $num_page = 0;
 
-  $index_sinonimos      =    $generate[$i_g]->index_sinonimos;
-  $name_csv_sinonimos   =    $generate[$i_g]->file_sinonimos;
-  $name_csv_orden       =    $generate[$i_g]->file_orden;
-  $max_row              =    $generate[$i_g]->max_row;
-  $max_col              =    $generate[$i_g]->max_columns;
-  $max_combinations     =    $generate[$i_g]->max_combination;
-  $max_index            =    $generate[$i_g]->max_index;
-  $name_page            =    $generate[$i_g]->name_page;
-  $desc_pag             =    $generate[$i_g]->desc_page;
-  $id_template          =    $generate[$i_g]->id_template;
-  $id_parent            =    $generate[$i_g]->id_parent;
-  $date_desde           =    $generate[$i_g]->date_desde;
-  $date_hasta           =    $generate[$i_g]->date_hasta;
+  $index_sinonimos          =    $generate[$i_g]->index_sinonimos;
+  $name_csv_sinonimos       =    $generate[$i_g]->file_sinonimos;
+  $name_csv_orden           =    $generate[$i_g]->file_orden;
+  $max_row                  =    $generate[$i_g]->max_row;
+  $max_col                  =    $generate[$i_g]->max_columns;
+  $max_combinations         =    $generate[$i_g]->max_combination;
+  $max_index                =    $generate[$i_g]->max_index;
+  $name_page                =    $generate[$i_g]->name_page;
+  $desc_pag                 =    $generate[$i_g]->desc_page;
+  $id_template              =    $generate[$i_g]->id_template;
+  $id_parent                =    $generate[$i_g]->id_parent;
+  $date_desde               =    $generate[$i_g]->date_desde;
+  $date_hasta               =    $generate[$i_g]->date_hasta;
+  
+  $name_csv_desc_sinonimos  =    $generate[$i_g]->file_desc_sinonimos;
 
   $path_csv = PG_PATH_UPLOADS."/csv/";
 
@@ -111,7 +110,7 @@ for($i_g = 0; $i_g < count($generate) && ($num_cron_execution > 0); $i_g++)
 
           //echo utf8_encode($sinonimos[$row_sinonimos][$j])." ";
           //echo "[Texto_Sinonimos_".($i+1)."]   ===>  ".utf8_encode($sinonimos[$i][$j])."<br/>";
-          //echo "[Texto_Sinonimos_".($i+1)."]   ===>  ".$sinonimos[$i][$j]."<br/>";
+          echo "[Texto_Sinonimos_".($i+1)."]   ===>  ".$sinonimos[$i][$j]."<br/>";
         }
       }
 
@@ -148,7 +147,7 @@ for($i_g = 0; $i_g < count($generate) && ($num_cron_execution > 0); $i_g++)
     //var_dump($city_name);
     //exit;
     //$content = str_replace("[Texto_Sinonimos_1]",$datos[0], $content);  
-
+exit;
     $my_post = array(
       'post_title'    => $temp_name_page,
       'post_status'   => 'publish',
@@ -181,32 +180,19 @@ for($i_g = 0; $i_g < count($generate) && ($num_cron_execution > 0); $i_g++)
     if (class_exists('\Elementor\Core\Files\CSS\Post')) {
       \Elementor\Core\Files\CSS\Post::create($pageId)->update();
     }
-
+/////////////////////////////////
     // Meta Description
-    $new_desc = $desc_pag;
+    /////////////////////////
+
+   /* $new_desc = $desc_pag;
+    $desc_sinonimos = getFileInfo($path_csv.$name_csv_desc_sinonimos);
+
+
     $new_desc = str_replace('[Texto_Ciudad]', $city_name, $new_desc);
     $new_desc = str_replace('[Texto_Sinonimos_1]', "texto_sinonsi", $new_desc);
 
     $updated = update_post_meta($pageId, 'rank_math_description', wp_strip_all_tags($new_desc));
-    
-    //////////////////////////////////////////
-    // ELEMENTOR COPY DATA ///////////////////
-    //////////////////////////////////////////    
-
-      /*$page = array(
-        'post_type' => 'page',
-        'post_title' => 'My Dynamic Page Title',
-        'post_name' => 'My Dynamic Page Title',
-        // Copy the content from the template
-        'post_content' => $template->post_content,
-        'post_status' => 'publish',
-        'post_author' => get_current_user_id(),
-      );*/
-
-    //////////////////////////////////////////
-    //////////////////////////////////////////
-    //////////////////////////////////////////
-
+    */
     $index_sinonimos++;
 
     if($index_sinonimos >= $max_index){
@@ -241,45 +227,5 @@ for($i_g = 0; $i_g < count($generate) && ($num_cron_execution > 0); $i_g++)
 echo "Se han creado ".$num_total." paginas";
 
 
-///////////////////////////////////////////////////////
-//////////////////// FUNCTIONS ////////////////////////
-//////////////////////////////////////////////////////
 
-  function getFileInfo($path_csv) {
-    //echo $path_csv;
-    $array_return[][] = array();
-
-    $fila = 1;
-    if (($gestor = fopen($path_csv, "r")) !== FALSE) {
-      // para que quite la primera linea
-      fgetcsv($gestor, 10000000, ";");
-
-      while (($datos = fgetcsv($gestor, 10000000, ";")) !== FALSE) {
-
-        $numero = count($datos);
-
-        //echo "<p> $numero de campos en la línea $fila: <br /></p>\n";
-        //para quitar la primera linea que es el titulo
-
-        for ($c=1; $c < $numero; $c++) {
-          $array_return[$fila-1][$c-1] = $datos[$c];
-          //echo $datos[$c] . "<br />\n";
-        }
-
-        $fila++;
-      }
-
-      fclose($gestor);
-    }
-
-    return $array_return;
-  }
-
-  function random_date($date_min,$date_max){
-    $milisecondsMin = strtotime($date_min);
-    $milisecondsMax = strtotime($date_max);
-    $miliseconsRandom = mt_rand($milisecondsMin, $milisecondsMax);
-
-    return date("Y-m-d H:i:s", $miliseconsRandom);
-  }
 ?>

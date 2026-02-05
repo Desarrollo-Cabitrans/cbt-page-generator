@@ -25,7 +25,7 @@ function rbk_pg_db_create_table() {
       PRIMARY KEY (id)
     )"
   );
-
+  
   //INSER DATA
   $data=array(
     "id"=>1,
@@ -90,8 +90,39 @@ function rbk_pg_db_create_table() {
   $wpdb->insert( $tableName, $data );
 
   $data=array(
+    "data"=>"Desc Index Sinonimos",
+    "value"=>"0",
+  );
+  $wpdb->insert( $tableName, $data );
+
+  $data=array(
     "data"=>"Nombre Pagina",
     "value"=>"Enviar Palets [Texto_Ciudad] | 962403354 | Envíos Nacionales e Internacionales",
+  );
+  $wpdb->insert( $tableName, $data );
+
+  
+  $data=array(
+    "data"=>"Desc Max Filas",
+    "value"=>"44",
+  );
+  $wpdb->insert( $tableName, $data );
+
+  $data=array(
+    "data"=>"Desc Max Columnas",
+    "value"=>"12",
+  );
+  $wpdb->insert( $tableName, $data );
+
+  $data=array(
+    "data"=>"Desc Max Combinations",
+    "value"=>"88",
+  );
+  $wpdb->insert( $tableName, $data );
+
+  $data=array(
+    "data"=>"Desc Max Index",
+    "value"=>"1056",
   );
   $wpdb->insert( $tableName, $data );
 
@@ -125,6 +156,7 @@ function rbk_pg_db_create_table() {
     "CREATE TABLE $tableName (
       id bigint(20) unsigned AUTO_INCREMENT,
       file_sinonimos varchar(255),
+      file_desc_sinonimos varchar(255),
       file_orden varchar(255),
       max_row varchar(255),
       max_columns varchar(255),
@@ -132,6 +164,11 @@ function rbk_pg_db_create_table() {
       max_index varchar(255),
       index_sinonimos varchar(255),
       name_page varchar(255),
+      desc_max_row varchar(255),
+      desc_max_columns varchar(255),
+      desc_max_combination varchar(255),
+      desc_max_index varchar(255),
+      desc_index_sinonimos varchar(255),
       desc_page varchar(255),
       id_template varchar(255),
       id_parent varchar(255),

@@ -23,11 +23,17 @@ $path_csv = plugin_dir_path(__FILE__).'../uploads/csv/';
     $index_sinonimos = $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Index Sinonimos'" )[0]->value;
     $name_csv_sinonimos = $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Sinonimos'" )[0]->value;
     $name_csv_orden = $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Orden Sinonimos'" )[0]->value;
+    $name_csv_desc_sinonimos = $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Descripcion Sinonimos'" )[0]->value;
     $max_row = $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Max Filas'" )[0]->value;
     $max_col = $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Max Columnas'" )[0]->value;
     $max_combinations = $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Max Combinations'" )[0]->value;
     $max_index = $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Max Index'" )[0]->value;
     $name_page =  $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Nombre Pagina'" )[0]->value;
+    $desc_max_row =  $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Desc Max Filas'" )[0]->value;
+    $desc_max_columns =  $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Desc Max Columnas'" )[0]->value;
+    $desc_max_combination =  $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Desc Max Combinations'" )[0]->value;
+    $desc_max_index =  $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Desc Max Index'" )[0]->value;
+    $desc_index_sinonimos =  $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Desc Index Sinonimos'" )[0]->value;
     $desc_page =  $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Descripcion Pagina'" )[0]->value;
     $id_template =  $wpdb->get_results( "SELECT value FROM $tableName WHERE data='ID Template'" )[0]->value;
     $id_parent =  $wpdb->get_results( "SELECT value FROM $tableName WHERE data='ID Parent'" )[0]->value;
@@ -43,12 +49,18 @@ $path_csv = plugin_dir_path(__FILE__).'../uploads/csv/';
     $data=array(
       "file_sinonimos"=> $name_csv_sinonimos,
       "file_orden"=> $name_csv_orden,
+      "file_desc_sinonimos"=> $name_csv_desc_sinonimos,
       "max_row"=> $max_row,
       "max_columns"=> $max_col,
       "max_combination"=> $max_combinations,
       "max_index"=> $max_index,
       "index_sinonimos"=> $index_sinonimos,
       "name_page"=> $name_page,
+      "desc_max_row"=> $desc_max_row,
+      "desc_max_columns"=> $desc_max_columns,
+      "desc_max_combination"=> $desc_max_combination,
+      "desc_max_index"=> $desc_max_index,
+      "desc_index_sinonimos"=> $desc_index_sinonimos,
       "desc_page"=> $desc_page,
       "id_template"=> $id_template,
       "id_parent"=> $id_parent,

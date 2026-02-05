@@ -19,7 +19,10 @@ if(strpos($_SERVER['REQUEST_URI'],"/wp-admin")>-1){
   define('PG_URL_PLUGIN_OTHERS',PG_URL_PLUGIN.'/plugins');
   
   define('PG_PATH_UPLOADS',PG_PATH_PLUGIN.'/uploads');
+  define('PG_PATH_UPLOADS_CSV',PG_PATH_UPLOADS.'/csv/');
   define('PG_PATH_DATABASE',PG_PATH_PLUGIN.'/database');
+
+  define('PG_PATH_CODE',PG_PATH_PLUGIN.'/cod');
 
   //INCLUDES
   include PG_PATH_DATABASE."/database.php";

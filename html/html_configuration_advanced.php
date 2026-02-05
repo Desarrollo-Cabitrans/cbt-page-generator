@@ -1,47 +1,117 @@
-<div style="margin:20px;">
-  <form method="POST" enctype="multipart/form-data">
-    <h3> 
-      Escribe el numero maximo de sinonimos en la página
-      <br/>
-      <small>Es el numero de filas que tiene el archivo de sinonimos.</small>
-    </h3>
 
-    <input type="text" name="text_max_row" value="<?php echo $max_row_sinonimos; ?>"/>
-    <br/><br/>
 
-    <h3>
-      Escribe el numero de combinacion por cada sinonimo
-      <br/>
-      <small>Es el numero de columnas que tiene el archivo de sinonimos y orden.</small>
-    </h3>
+ <div class="wrap">
+  <h2>Generador Paginas - Configuración Avanzada</h2>
 
-    <input type="text" name="text_max_col" value="<?php echo $max_col_sinonimos; ?>"/>
-    <br/><br/>
+  <h2 class="nav-tab-wrapper">
+      <a href="?page=configuration_advanced_page_generator_wp&tab=pages" class="nav-tab <?php echo $active_tab == 'pages' ? 'nav-tab-active' : ''; ?>">Paginas</a>
+      <a href="?page=configuration_advanced_page_generator_wp&tab=descriptions" class="nav-tab <?php echo $active_tab == 'descriptions' ? 'nav-tab-active' : ''; ?>">Meta Descripcion</a>
+  </h2>
 
-    <h3> 
-      Escribe el numero maximo de combinaciones para utilizar
-      <br/>
-      <small>Es el numero de filas que tiene el archivo de orden de los sinonimos.</small>
-    </h3>
+  <div class="tab-content">
+      <?php if ($active_tab == 'pages'): ?>
+        <div style="margin:20px;">
+          <h2>PAGINAS - Configuración Avanzada</h2>
+          <div style="margin:20px;">
+            <form method="POST" enctype="multipart/form-data">
+              <h3> 
+                Escribe el numero maximo de sinonimos en la página
+                <br/>
+                <small>Es el numero de filas que tiene el archivo de sinonimos.</small>
+              </h3>
 
-    <input type="text" name="text_max_combinations" value="<?php echo $max_combinations_sinonimos; ?>"/>
-    <br/><br/>
-    <br/>
+              <input type="text" name="text_max_row" value="<?php echo $max_row_sinonimos; ?>"/>
+              <br/><br/>
 
-    <h3> 
-      Indice de la Matriz de Orden
-      <br/>
-      <small>El indice ahora es </small> <?php echo $index_sinonimos; ?>
-    </h3>
+              <h3>
+                Escribe el numero de combinacion por cada sinonimo
+                <br/>
+                <small>Es el numero de columnas que tiene el archivo de sinonimos y orden.</small>
+              </h3>
 
-    <input type="checkbox" name="check_reset_index" /> Marcar si quieres resetear el index del orden de los sinonimos (<small>para que vuelva a empezar desde el principio</small>) 
-    <br/>
+              <input type="text" name="text_max_col" value="<?php echo $max_col_sinonimos; ?>"/>
+              <br/><br/>
 
-    <br/><br/>
+              <h3> 
+                Escribe el numero maximo de combinaciones para utilizar
+                <br/>
+                <small>Es el numero de filas que tiene el archivo de orden de los sinonimos.</small>
+              </h3>
 
-    <input type="submit" value="Guardar Datos" />
-  </form>
+              <input type="text" name="text_max_combinations" value="<?php echo $max_combinations_sinonimos; ?>"/>
+              <br/><br/>
+              <br/>
+
+              <h3> 
+                Indice de la Matriz de Orden
+                <br/>
+                <small>El indice ahora es </small> <?php echo $index_sinonimos; ?>
+              </h3>
+
+              <input type="checkbox" name="check_reset_index" /> Marcar si quieres resetear el index del orden de los sinonimos (<small>para que vuelva a empezar desde el principio</small>) 
+              <br/>
+
+              <br/><br/>
+
+              <input type="submit" value="Guardar Datos" />
+            </form>
+          </div>
+        </div>
+      <?php elseif ($active_tab == 'descriptions'): ?>
+        <div style="margin:20px;">
+          <h2>META DESCRIPCION - Configuración Avanzada</h2>
+          <div style="margin:20px;">
+            <form method="POST" enctype="multipart/form-data">
+              <h3> 
+                Escribe el numero maximo de sinonimos en la página
+                <br/>
+                <small>Es el numero de filas que tiene el archivo de sinonimos.</small>
+              </h3>
+
+              <input type="text" name="text_max_row" value="<?php echo $max_row_sinonimos; ?>"/>
+              <br/><br/>
+
+              <h3>
+                Escribe el numero de combinacion por cada sinonimo
+                <br/>
+                <small>Es el numero de columnas que tiene el archivo de sinonimos y orden.</small>
+              </h3>
+
+              <input type="text" name="text_max_col" value="<?php echo $max_col_sinonimos; ?>"/>
+              <br/><br/>
+
+              <h3> 
+                Escribe el numero maximo de combinaciones para utilizar
+                <br/>
+                <small>Es el numero de filas que tiene el archivo de orden de los sinonimos.</small>
+              </h3>
+
+              <input type="text" name="text_max_combinations" value="<?php echo $max_combinations_sinonimos; ?>"/>
+              <br/><br/>
+              <br/>
+
+              <h3> 
+                Indice de la Matriz de Orden
+                <br/>
+                <small>El indice ahora es </small> <?php echo $index_sinonimos; ?>
+              </h3>
+
+              <input type="checkbox" name="check_reset_index" /> Marcar si quieres resetear el index del orden de los sinonimos (<small>para que vuelva a empezar desde el principio</small>) 
+              <br/>
+
+              <br/><br/>
+
+              <input type="submit" value="Guardar Datos" />
+            </form>
+          </div>
+        </div>
+      <?php endif; ?>
+  </div>
 </div>
+
+<style>
+  .tab-content { margin-top: 20px; }
+</style>
 
 
 
