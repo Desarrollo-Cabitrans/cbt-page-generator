@@ -174,6 +174,7 @@ function rbk_pg_db_create_table() {
       id_parent varchar(255),
       date_desde varchar(255),
       date_hasta varchar(255),
+      pages_to_create varchar(255),
       PRIMARY KEY (id)
     )"
   );

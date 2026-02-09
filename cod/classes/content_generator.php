@@ -94,13 +94,11 @@ require PG_PATH_CODE."/classes/page_generator.php";
         // para que quite la primera linea
         fgetcsv($gestor, 10000000, ";");
 
-        while (($datos = fgetcsv($gestor, 10000000, ";")) !== FALSE) {
-
+        while (($datos = fgetcsv($gestor, 10000000, ";")) !== FALSE)
+        {
           $numero = count($datos);
 
-          //echo "<p> $numero de campos en la línea $fila: <br /></p>\n";
           //para quitar la primera linea que es el titulo
-
           for ($c=1; $c < $numero; $c++) {
             $array_return[$fila-1][$c-1] = $datos[$c];
             //echo $datos[$c] . "<br />\n";

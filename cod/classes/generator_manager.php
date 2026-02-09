@@ -7,11 +7,13 @@
     private int $num_executions;
     private int $num_pages_to_create;
 
-    public function __construct($num_executions)
+    public function __construct()
     {
       global $wpdb;
-      $this->num_executions = $num_executions;
-      $this->num_pages_to_create  = $num_executions;
+      
+      $tableName = $wpdb->prefix . "rbk_pg_data";
+      $this->num_executions =  $wpdb->get_results( "SELECT value FROM $tableName WHERE data='Limit Data Cron'" )[0]->value;
+      $this->num_pages_to_create  = $this->num_executions;
       
       $tableName = $wpdb->prefix . "rbk_pg_cron_generate";
       $this->generate = $wpdb->get_results( "SELECT * FROM $tableName" );

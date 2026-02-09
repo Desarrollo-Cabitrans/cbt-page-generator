@@ -98,6 +98,13 @@ $path_csv = plugin_dir_path(__FILE__).'../uploads/csv/';
       fclose($gestor);
     }
 
+    
+    $tableName = $wpdb->prefix . $name_db_generate;
+    $data=array(
+      "pages_to_create" => $num_page,
+    );
+    $wpdb->update( $tableName, $data, array("id"=>$id_generate));
+
     if($wpdb->last_error != "")
     {
       $is_error_generate_page = true;

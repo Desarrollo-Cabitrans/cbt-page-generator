@@ -30,7 +30,8 @@
         'max_combination' => $this->config->max_combination
       ];
       $content = $this->generateSinonimos($content, $config);
-      
+      $pageId = $this->createPage($content);
+      exit;
       //echo "<br/><br/<<br/>"; 
 
       $content_desc = $this->config->desc_page;
@@ -42,7 +43,6 @@
       ];
       $content_desc = $this->generateSinonimos($content_desc, $config_desc);
 
-      $pageId = $this->createPage($content);
       $this->createMetaDescripcion($pageId, $content_desc);
     }
 
@@ -93,7 +93,6 @@
       if(true || $type == "elementor")
       {
         $meta_keys = [
-          '_elementor_data',
           '_elementor_edit_mode',
           '_elementor_version',
           '_elementor_template_type',
@@ -131,8 +130,8 @@
 
       $city_name = $this->page->city;
         
-      $content = str_replace("[Texto_Ciudad]",htmlentities($city_name, ENT_QUOTES | ENT_HTML401, 'UTF-8'), $content);
-      $content = str_replace("[TEXTO_CIUDAD]",htmlentities($city_name, ENT_QUOTES | ENT_HTML401, 'UTF-8'), $content);
+      $content = str_replace("[Texto_Ciudad]",$city_name, $content);
+      $content = str_replace("[TEXTO_CIUDAD]",$city_name, $content);
 
       $row_name = (int)($index_sinonimos/$max_col);
       $col_name = $index_sinonimos - ($max_col*$row_name);
@@ -151,7 +150,7 @@
             $isFind = true;
             $content = str_replace("[Texto_Sinonimos_".($i+1)."]",$this->sinonimos[$i][$j], $content);
         
-            //echo "[Texto_Sinonimos_".($i+1)."]   ===>  ".$this->sinonimos[$i][$j]."<br/>";
+            echo "[Texto_Sinonimos_".($i+1)."]   ===>  ".$this->sinonimos[$i][$j]."<br/>";
           }
         }
         
