@@ -31,7 +31,7 @@
       ];
       $content = $this->generateSinonimos($content, $config);
       $pageId = $this->createPage($content);
-      exit;
+
       //echo "<br/><br/<<br/>"; 
 
       $content_desc = $this->config->desc_page;
@@ -130,6 +130,7 @@
 
       $city_name = $this->page->city;
         
+      $content = str_replace("[Texto Ciudad]",$city_name, $content);
       $content = str_replace("[Texto_Ciudad]",$city_name, $content);
       $content = str_replace("[TEXTO_CIUDAD]",$city_name, $content);
 
@@ -150,7 +151,7 @@
             $isFind = true;
             $content = str_replace("[Texto_Sinonimos_".($i+1)."]",$this->sinonimos[$i][$j], $content);
         
-            echo "[Texto_Sinonimos_".($i+1)."]   ===>  ".$this->sinonimos[$i][$j]."<br/>";
+            //echo "[Texto_Sinonimos_".($i+1)."]   ===>  ".$this->sinonimos[$i][$j]."<br/>";
           }
         }
         
